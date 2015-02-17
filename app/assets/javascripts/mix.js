@@ -75,23 +75,25 @@ function randomColor(alpha) {
 }
 function editAnnotation (region) {
   var form = document.forms.edit;
-  form.style.opacity = 1;
+  form.classList.remove('hide');
   form.elements.start.value = Math.round(region.start * 10) / 10,
   form.elements.end.value = Math.round(region.end * 10) / 10;
   form.elements.note.value = region.data.note || '';
+  form.elements.type.value = region.data.type || '';
   form.onsubmit = function (e) {
     e.preventDefault();
     region.update({
       start: form.elements.start.value,
       end: form.elements.end.value,
       data: {
-        note: form.elements.note.value
+        note: form.elements.note.value,
+        type: form.elements.type.value
       }
     });
-    form.style.opacity = 0;
+    form.classList.add('hide');
   };
   form.onreset = function () {
-    form.style.opacity = 0;
+    form.classList.add('hide');
     form.dataset.region = null;
   };
   form.dataset.region = region.id;
