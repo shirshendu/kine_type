@@ -24,6 +24,21 @@ document.addEventListener('DOMContentLoaded', function () {
     progressColor: '#999',
     cursorColor: '#999'
   });
+
+  wavesurfer.on('ready', function () {
+    if (localStorage.regions) {
+      loadRegions(JSON.parse(localStorage.regions));
+    } else {
+      wavesurfer.util.ajax({
+        responseType: 'json',
+        url: 'annotations.json'
+      }).on('success', function (data) {
+        loadRegions(data);
+        saveRegions();
+      });
+    }
+  });
+
   /* Timeline plugin */
   wavesurfer.on('ready', function () {
     var timeline = Object.create(WaveSurfer.Timeline);
