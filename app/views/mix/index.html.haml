@@ -1,0 +1,36 @@
+%div#subtitle.text-center.text-info
+%div#wave-timeline
+%div#waveform
+.row{:style => "margin: 30px 0"}
+  .col-sm-8
+    %p
+      Click on a region to enter an annotation.
+      %br
+        Shift-click plays a region in a loop.
+  .col-sm-2
+    %button.btn.btn-primary.btn-block{"data-action" => "play"}
+      %span#play
+        %i.glyphicon.glyphicon-play
+        Play
+      %span#pause{:style => "display: none;"}
+        %i.glyphicon.glyphicon-pause
+        Pause
+  .col-sm-2
+    %button.btn.btn-info.btn-block{"data-action" => "export", :title => "Export annotations to JSON"}
+      %i.glyphicon.glyphicon-file
+      Export
+%iframe{ src: '/editor/index.html', seamless: true, height: '600px', width: '100%' }
+%form{:name => "edit", :role => "form", :style => "opacity: 0; transition: opacity 300ms linear; margin: 30px 0;"}
+  .form-group
+    %label{:for => "start"} Start
+    %input#start.form-control{:name => "start"}
+  .form-group
+    %label{:for => "end"} End
+    %input#end.form-control{:name => "end"}
+  .form-group
+    %label{:for => "note"} Note
+    %textarea#note.form-control{:name => "note", :rows => "3"}
+  %button.btn.btn-success.btn-block{:type => "submit"} Save
+  %center
+    %i or
+  %button.btn.btn-danger.btn-block{"data-action" => "delete-region", :type => "button"} Delete

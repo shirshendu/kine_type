@@ -49,6 +49,7 @@ gem 'bootstrap-sass-extras'
 gem 'binding_of_caller'
 gem 'tzinfo-data'
 gem 'validates_formatting_of'
+gem 'haml'
 
 group :development, :test do
   gem 'dotenv-rails'
