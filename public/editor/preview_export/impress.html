@@ -58,12 +58,15 @@
 <script src="scripts/loadPresentation.js"></script>
 <script>
 ready(function() {
+    var audio = new Audio('http://localhost:3000/1.mp3');
     if (document.getElementById('launched-placeholder'))
         loadPresentation();
 
     if (!window.presStarted) {
         startPres(document, window);
-        impress().init();   
+        impress().init();
+        impress().goto(0,0);
+        audio.play();
     }
 
     if ("ontouchstart" in document.documentElement) { 
