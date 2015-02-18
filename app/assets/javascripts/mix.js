@@ -1,6 +1,7 @@
 'use strict';
 
 var wavesurfer = Object.create(WaveSurfer);
+var regionWavesurfer = Object.create(WaveSurfer);
 
 document.addEventListener('DOMContentLoaded', function () {
   wavesurfer.init({
@@ -12,6 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     loaderColor  : 'purple',
     cursorColor  : 'navy',
     minimap      : true,
+  });
+
+  regionWavesurfer.init({
+    container: document.querySelector('#region-waveform'),
+    waveColor: 'green',
+    scrollParent: false,
+    normalize: false,
+    progressColor: 'light-green',
+    loaderColor  : 'dark-green',
+    cursorColor  : 'navy',
   });
 
   wavesurfer.load('1.mp3');
