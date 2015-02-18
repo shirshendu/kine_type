@@ -106,7 +106,8 @@ function saveRegions() {
     return {
       start: region.start,
       end: region.end,
-      data: region.data
+      data: region.data,
+      texts: []
     };
   })
   );
