@@ -148,9 +148,8 @@ $ ->
       container: '#wave-timeline'
     return
   wavesurfer.on 'region-click', (region, e) ->
-    e.stopPropagation()
-    # Play on click, loop on shift click
-    if e.shiftKey then region.play()
+    if e.shiftKey
+      region.play()
     return
   wavesurfer.on 'region-click', editAnnotation
   #wavesurfer.on('region-dblclick', splitRegion);
