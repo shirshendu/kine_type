@@ -8,7 +8,9 @@
       %br
       Split regions between segments (As many slides as segments are generated)
       %br
-      Mark word-start-points inside regions (As many text-boxes as word-start-points)
+      Mark/drag word-start-points inside regions
+      %br
+      Click on each word-start-point, enter word/phrase for it, and 'Save'
   .col-sm-1
     %button.btn.btn-primary.btn-block{"data-action" => "play"}
       %span#play
@@ -35,7 +37,7 @@
     %label{:for => "end"} End
     %input#end.form-control{:name => "end", disabled: 'disabled'}
   .form-group.col-md-3
-    %label{:for => "note"} Note
+    %label{:for => "note"} Text
     %textarea#note.form-control{:name => "note", :rows => "1"}
   .form-group.col-md-3
     %label{:for => "type"} Type
