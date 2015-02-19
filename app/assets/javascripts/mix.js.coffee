@@ -67,6 +67,11 @@ deleteRegion = ->
     form.reset()
   return
 
+setMarker = ->
+  time = wavesurfer.getCurrentTime()
+  wavesurfer.addRegion(start: time, drag: true, resize: false, data: { type: 'segment_item' }, color: 'rgba(0,0,0,0.5)')
+  saveRegions()
+
 window.regionsArray = ->
   mapped = Object.keys(wavesurfer.regions.list).map((id) ->
     region = wavesurfer.regions.list[id]
@@ -76,7 +81,7 @@ window.regionsArray = ->
       end: region.end
       data: region.data
       texts: []
-      drag: false
+      drag: (if region.data.type == 'segment_item' then true else false)
       resize: false
       type: region.type
     }
@@ -89,7 +94,7 @@ round10 = (input) ->
 
 loadRegions = (regions) ->
   regions.forEach (region) ->
-    region.color = randomColor(0.3)
+    region.color = (if region.data.type == 'segment' then randomColor(0.3) else 'rgba(0,0,0,0.5)')
     wavesurfer.addRegion region
     return
   return
@@ -101,7 +106,6 @@ showNote = (region) ->
   return
 
 window.wavesurfer = Object.create(WaveSurfer)
-regionWavesurfer = Object.create(WaveSurfer)
 $ ->
   wavesurfer.init
     container: document.querySelector('#waveform')
@@ -113,18 +117,7 @@ $ ->
     cursorColor: 'navy'
     minimap: true
     minPxPerSec: 100
-  regionWavesurfer.init
-    container: document.querySelector('#region-waveform')
-    waveColor: 'green'
-    scrollParent: false
-    normalize: false
-    progressColor: 'light-green'
-    loaderColor: 'dark-green'
-    cursorColor: 'navy'
   wavesurfer.load '1.mp3'
-  #wavesurfer.enableDragSelection({
-  #color: randomColor(0.1)
-  #});
   wavesurfer.initMinimap
     height: 30
     waveColor: '#ddd'
@@ -169,6 +162,9 @@ window.GLOBAL_ACTIONS['delete-region'] = ->
 
 window.GLOBAL_ACTIONS['split-region'] = ->
   splitRegion()
+
+window.GLOBAL_ACTIONS['mark-word'] = ->
+  setMarker()
 
 window.GLOBAL_ACTIONS['export'] = ->
   window.open 'data:application/json;charset=utf-8,' + encodeURIComponent(localStorage.regions)
