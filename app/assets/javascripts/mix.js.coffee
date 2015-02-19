@@ -9,9 +9,13 @@ randomColor = (alpha) ->
 editAnnotation = (region) ->
   form = document.forms.edit
   form.classList.remove 'hide'
-  form.elements.start.value = round10(region.start)
-  form.elements.end.value = round10(region.end)
+  form.elements.start.value = round100(region.start)
+  form.elements.end.value = round100(region.end)
   form.elements.note.value = region.data.note or ''
+  if region.data.type == 'segment'
+    form.elements.note.setAttribute('disabled', 'disabled')
+  else
+    form.elements.note.removeAttribute('disabled')
   form.elements.type.value = region.data.type or ''
 
   form.onsubmit = (e) ->
@@ -39,8 +43,8 @@ splitRegion = ->
   time = wavesurfer.getCurrentTime()
   # Assume that time is always within a region, since we initialize a region over full audio at start
   splitCandidate = getRegions(time)[0]
-  wavesurfer.addRegion { start: splitCandidate.start, end: round10(time), drag: false, resize: false, data: { type: 'segment' } }
-  wavesurfer.addRegion { start: round10(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' } }
+  wavesurfer.addRegion { start: splitCandidate.start, end: round100(time), drag: false, resize: false, data: { type: 'segment' } }
+  wavesurfer.addRegion { start: round100(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' } }
   wavesurfer.regions.list[splitCandidate.region_id].remove()
   saveRegions()
 
@@ -55,13 +59,14 @@ deleteRegion = ->
   form = document.forms.edit
   regionId = form.dataset.region
   deleteCandidate = wavesurfer.regions.list[regionId]
-  if deleteCandidate.start == 0
-    # set second's start as 0
-    wavesurfer.regions.list[regionsArray()[1].region_id].update(start: 0)
-  else
-    # set prev's end as this end
-    replacer = (region for region_id, region of wavesurfer.regions.list when round10(region.end) == round10(deleteCandidate.start))[0]
-    wavesurfer.regions.list[replacer.id].update(end: deleteCandidate.end)
+  if deleteCandidate.data.type == 'segment'
+    if deleteCandidate.start == 0
+      # set second's start as 0
+      wavesurfer.regions.list[regionsArray()[1].region_id].update(start: 0)
+    else
+      # set prev's end as this end
+      replacer = (region for region_id, region of wavesurfer.regions.list when round100(region.end) == round10(deleteCandidate.start))[0]
+      wavesurfer.regions.list[replacer.id].update(end: deleteCandidate.end)
   if regionId
     wavesurfer.regions.list[regionId].remove()
     form.reset()
@@ -69,7 +74,7 @@ deleteRegion = ->
 
 setMarker = ->
   time = wavesurfer.getCurrentTime()
-  wavesurfer.addRegion(start: time, drag: true, resize: false, data: { type: 'segment_item' }, color: 'rgba(0,0,0,0.5)')
+  wavesurfer.addRegion(start: round100(time), drag: true, resize: false, data: { type: 'segment_item' }, color: 'rgba(0,0,0,0.5)')
   saveRegions()
 
 window.regionsArray = ->
@@ -77,8 +82,8 @@ window.regionsArray = ->
     region = wavesurfer.regions.list[id]
     {
       region_id: id
-      start: region.start
-      end: region.end
+      start: round100(region.start)
+      end: round100(region.end)
       data: region.data
       texts: []
       drag: (if region.data.type == 'segment_item' then true else false)
@@ -89,8 +94,8 @@ window.regionsArray = ->
   mapped.sort (a,b)->
     a.start - b.start
 
-round10 = (input) ->
-  Math.round(input * 10)/10
+round100 = (input) ->
+  Math.round(input * 100)/100
 
 loadRegions = (regions) ->
   regions.forEach (region) ->
@@ -102,7 +107,8 @@ loadRegions = (regions) ->
 showNote = (region) ->
   if !showNote.el
     showNote.el = $('#subtitle')
-  showNote.el.html region.data.note or '–'
+  if region.data.type == 'segment_item'
+    showNote.el.html region.data.note or '–'
   return
 
 window.wavesurfer = Object.create(WaveSurfer)
@@ -127,7 +133,7 @@ $ ->
     if localStorage.regions
       loadRegions JSON.parse(localStorage.regions)
     else
-      wavesurfer.addRegion(start: 0, end: round10(wavesurfer.getDuration()), drag: false, resize: false, data: { type: 'segment' })
+      wavesurfer.addRegion(start: 0, end: round100(wavesurfer.getDuration()), drag: false, resize: false, data: { type: 'segment' })
       saveRegions()
     return
 
