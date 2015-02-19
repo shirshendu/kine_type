@@ -19,7 +19,15 @@ window.StrutBuilder ||= {}
 #   }
 # ]
 StrutBuilder.build = (data) ->
-  slides = for slide, i  in data
+  slidesdata = (slide for slide in data when slide.data.type == 'segment')
+  itemdata = (item for item in data when item.data.type == 'segment_item')
+  for slidedata in slidesdata
+    items = for item in itemdata when (slidedata.start <= item.start and item.start < slidedata.end)
+      text: item.data.note
+      position: item.start
+    slidedata.texts = items
+
+  slides = for slide, i in slidesdata
     StrutBuilder.Slide.build(slide, i)
   {
     slides: slides,
