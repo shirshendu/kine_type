@@ -65,7 +65,6 @@ deleteRegion = ->
   if regionId
     wavesurfer.regions.list[regionId].remove()
     form.reset()
-  saveRegions()
   return
 
 window.regionsArray = ->
@@ -149,6 +148,7 @@ $ ->
     return
   wavesurfer.on 'region-click', (region, e) ->
     if e.shiftKey
+      e.stopPropagation()
       region.play()
     return
   wavesurfer.on 'region-click', editAnnotation
