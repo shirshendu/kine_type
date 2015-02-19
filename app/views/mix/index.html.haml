@@ -1,7 +1,6 @@
 %div#subtitle.text-center.text-info
 %div#wave-timeline
 %div#waveform
-%div#region-waveform
 .row{:style => "margin: 30px 0"}
   .col-sm-6
     %p
@@ -10,7 +9,7 @@
       Split regions between segments (As many slides as segments are generated)
       %br
       Mark word-start-points inside regions (As many text-boxes as word-start-points)
-  .col-sm-2
+  .col-sm-1
     %button.btn.btn-primary.btn-block{"data-action" => "play"}
       %span#play
         %i.glyphicon.glyphicon-play
@@ -18,9 +17,12 @@
       %span#pause{:style => "display: none;"}
         %i.glyphicon.glyphicon-pause
         Pause
-  .col-sm-2
+  .col-sm-1
     %button.btn.btn-primary.btn-block{ 'data-action' => 'split-region' }
-      Split Region
+      Split
+  .col-sm-1
+    %button.btn.btn-primary.btn-block{ 'data-action' => 'mark-word' }
+      Mark
   .col-sm-2
     %button.btn.btn-info.btn-block{"data-action" => "export", :title => "Export annotations to JSON"}
       %i.glyphicon.glyphicon-file
@@ -28,18 +30,18 @@
 %form.hide{:name => "edit", :role => "form", :style => "margin: 30px 0;"}
   .form-group.col-md-3
     %label{:for => "start"} Start
-    %input#start.form-control{:name => "start"}
+    %input#start.form-control{:name => "start", disabled: 'disabled'}
   .form-group.col-md-3
     %label{:for => "end"} End
-    %input#end.form-control{:name => "end"}
+    %input#end.form-control{:name => "end", disabled: 'disabled'}
   .form-group.col-md-3
     %label{:for => "note"} Note
     %textarea#note.form-control{:name => "note", :rows => "1"}
   .form-group.col-md-3
     %label{:for => "type"} Type
-    %select#type.form-control{:name => "type"}
+    %select#type.form-control{:name => "type", disabled: 'disabled'}
       %option{ value: 'segment' } Segment
-      %option{ value: 'phrase' } Phrase
+      %option{ value: 'segment_item' } Phrase
   .form-group.col-md-2
     %button.btn.btn-success{:type => "submit"} Save
   .form-group.col-md-2
