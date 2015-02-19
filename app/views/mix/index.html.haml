@@ -3,11 +3,13 @@
 %div#waveform
 %div#region-waveform
 .row{:style => "margin: 30px 0"}
-  .col-sm-8
+  .col-sm-6
     %p
-      Click on a region to enter an annotation.
+      Shift-click on a region to play it from its beginning.
       %br
-        Shift-click plays a region in a loop.
+      Split regions between segments (As many slides as segments are generated)
+      %br
+      Mark word-start-points inside regions (As many text-boxes as word-start-points)
   .col-sm-2
     %button.btn.btn-primary.btn-block{"data-action" => "play"}
       %span#play
@@ -16,6 +18,9 @@
       %span#pause{:style => "display: none;"}
         %i.glyphicon.glyphicon-pause
         Pause
+  .col-sm-2
+    %button.btn.btn-primary.btn-block{ 'data-action' => 'split-region' }
+      Split Region
   .col-sm-2
     %button.btn.btn-info.btn-block{"data-action" => "export", :title => "Export annotations to JSON"}
       %i.glyphicon.glyphicon-file
@@ -33,7 +38,7 @@
   .form-group.col-md-3
     %label{:for => "type"} Type
     %select#type.form-control{:name => "type"}
-      %option{ value: 'sentence' } Sentence
+      %option{ value: 'segment' } Segment
       %option{ value: 'phrase' } Phrase
   .form-group.col-md-2
     %button.btn.btn-success{:type => "submit"} Save

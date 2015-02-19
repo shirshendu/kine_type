@@ -1,4 +1,4 @@
-var GLOBAL_ACTIONS = {
+window.GLOBAL_ACTIONS = {
   'play': function () {
     wavesurfer.playPause();
   },
