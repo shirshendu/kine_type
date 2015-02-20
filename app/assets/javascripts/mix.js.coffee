@@ -112,6 +112,9 @@ showNote = (region) ->
   return
 
 window.wavesurfer = Object.create(WaveSurfer)
+
+fileDropped = false
+
 $ ->
   wavesurfer.init
     container: document.querySelector('#waveform')
@@ -130,7 +133,10 @@ $ ->
     progressColor: '#999'
     cursorColor: '#999'
   wavesurfer.on 'ready', ->
-    if localStorage.regions
+    if fileDropped
+      wavesurfer.clearRegions()
+      fileDropped = false
+    if localStorage.regions && JSON.parse(localStorage.regions).length > 0
       loadRegions JSON.parse(localStorage.regions)
     else
       wavesurfer.addRegion(start: 0, end: round100(wavesurfer.getDuration()), drag: false, resize: false, data: { type: 'segment' })
@@ -160,6 +166,41 @@ $ ->
       wavesurfer.play region.start
       wavesurfer.pause()
       return
+    return
+  return
+
+document.addEventListener 'DOMContentLoaded', ->
+  # Drag'n'Drop
+  toggleActive = (e, toggle) ->
+    e.stopPropagation()
+    e.preventDefault()
+    if toggle then e.target.classList.add('wavesurfer-dragover') else e.target.classList.remove('wavesurfer-dragover')
+    return
+
+  handlers =
+    drop: (e) ->
+      toggleActive e, false
+      console.log e.dataTransfer.files
+      # Load the file into wavesurfer
+      if e.dataTransfer.files.length
+        fileDropped = true
+        wavesurfer.loadBlob e.dataTransfer.files[0]
+        reader = new FileReader()
+        reader.addEventListener 'loadend', ->
+          localStorage.aud = reader.result
+        reader.readAsBinaryString(e.dataTransfer.files[0].slice())
+      else
+        wavesurfer.fireEvent 'error', 'Not a file'
+      return
+    dragover: (e) ->
+      toggleActive e, true
+      return
+    dragleave: (e) ->
+      toggleActive e, false
+      return
+  dropTarget = document.querySelector('#drop')
+  Object.keys(handlers).forEach (event) ->
+    dropTarget.addEventListener event, handlers[event]
     return
   return
 
