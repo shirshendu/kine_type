@@ -65,7 +65,19 @@ ready(function() {
     if (!window.presStarted) {
         startPres(document, window);
         impress().init();
-        impress().goto(0,0);
+
+        // set box appearances
+        var textboxes = document.querySelectorAll('font[data-position]')
+        for (var i = 0; i < textboxes.length; i++) {
+          textboxes[i].style.display = 'none';
+          setTimeout(function(index) { return function(){ console.log('text'); textboxes[index].style.display = '' } }(i), textboxes[i].dataset.position * 1000);
+        };
+
+        //set slide transitions
+        var strut_data = JSON.parse(localStorage['strut-presentation-unnamed.strut']);
+        for (var i = 0; i < strut_data.slides.length; i++) {
+          setTimeout(function(){ console.log('slide');impress().next() }, (strut_data.slides[i].end * 1000) - 300);
+        };
         audio.play();
     }
 
@@ -86,7 +98,6 @@ ready(function() {
     </script>
 </head>
 <body class="impress-not-supported">
-    WIP HTML here
     <div id='kine_ppt'>
       <div id="launched-placeholder"></div>
     </div>
