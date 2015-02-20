@@ -58,7 +58,14 @@
 <script src="scripts/loadPresentation.js"></script>
 <script>
 ready(function() {
-    var audio = new Audio('http://localhost:3000/1.mp3');
+    var binAudio = new Uint8Array(localStorage.aud.length);
+    for (var i=0; i<localStorage.aud.length; i++) {
+      binAudio[i] = localStorage.aud.charCodeAt(i);
+    }
+    binAudioBlob = new Blob(binAudio, {type: 'audio/mp3'});
+    var url = URL.createObjectURL(binAudioBlob);
+    //'http://localhost:3000/1.mp3';
+    var audio = new Audio(url);
     if (document.getElementById('launched-placeholder'))
         loadPresentation();
 
