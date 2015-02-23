@@ -58,13 +58,15 @@
 <script src="scripts/loadPresentation.js"></script>
 <script>
 ready(function() {
-    var binAudio = new Uint8Array(localStorage.aud.length);
-    for (var i=0; i<localStorage.aud.length; i++) {
-      binAudio[i] = localStorage.aud.charCodeAt(i);
+    var str = localStorage.aud
+    var strBuf = new ArrayBuffer(str.length);
+    var binAudio = new Uint8Array(strBuf);
+    for (var i=0; i<str.length; i++) {
+      binAudio[i] = str.charCodeAt(i);
     }
-    binAudioBlob = new Blob(binAudio, {type: 'audio/mp3'});
+    binAudioBlob = new Blob([strBuf], {type: 'audio/mp3'});
     var url = URL.createObjectURL(binAudioBlob);
-    //'http://localhost:3000/1.mp3';
+    //var url = 'http://localhost:3000/1.mp3';
     var audio = new Audio(url);
     if (document.getElementById('launched-placeholder'))
         loadPresentation();
