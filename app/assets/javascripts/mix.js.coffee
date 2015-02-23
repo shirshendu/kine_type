@@ -39,8 +39,8 @@ editAnnotation = (region) ->
 
 defaultRegionParams = { texts: [], drag: false, resize: false }
 
-splitRegion = ->
-  time = wavesurfer.getCurrentTime()
+splitRegion(time) = ->
+  time ||= wavesurfer.getCurrentTime()
   # Assume that time is always within a region, since we initialize a region over full audio at start
   splitCandidate = getRegions(time)[0]
   wavesurfer.addRegion { start: splitCandidate.start, end: round100(time), drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
