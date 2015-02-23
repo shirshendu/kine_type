@@ -65,7 +65,7 @@ deleteRegion = ->
       wavesurfer.regions.list[regionsArray()[1].region_id].update(start: 0)
     else
       # set prev's end as this end
-      replacer = (region for region_id, region of wavesurfer.regions.list when round100(region.end) == round10(deleteCandidate.start))[0]
+      replacer = (region for region_id, region of wavesurfer.regions.list when round100(region.end) == round100(deleteCandidate.start))[0]
       wavesurfer.regions.list[replacer.id].update(end: deleteCandidate.end)
   if regionId
     wavesurfer.regions.list[regionId].remove()
