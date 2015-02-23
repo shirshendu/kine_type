@@ -59,21 +59,24 @@
 <script>
 ready(function() {
     var str = localStorage.aud
-    var strBuf = new ArrayBuffer(str.length);
-    var binAudio = new Uint8Array(strBuf);
-    for (var i=0; i<str.length; i++) {
-      binAudio[i] = str.charCodeAt(i);
+    if(str) {
+      var strBuf = new ArrayBuffer(str.length);
+      var binAudio = new Uint8Array(strBuf);
+      for (var i=0; i<str.length; i++) {
+        binAudio[i] = str.charCodeAt(i);
+      }
+      binAudioBlob = new Blob([strBuf], {type: 'audio/mp3'});
+      var url = URL.createObjectURL(binAudioBlob);
+      var audio = new Audio(url);
     }
-    binAudioBlob = new Blob([strBuf], {type: 'audio/mp3'});
-    var url = URL.createObjectURL(binAudioBlob);
-    //var url = 'http://localhost:3000/1.mp3';
-    var audio = new Audio(url);
+
     if (document.getElementById('launched-placeholder'))
         loadPresentation();
 
     if (!window.presStarted) {
         startPres(document, window);
         impress().init();
+        impress().goto(0,0);
 
         // set box appearances
         var textboxes = document.querySelectorAll('font[data-position]')
@@ -87,7 +90,9 @@ ready(function() {
         for (var i = 0; i < strut_data.slides.length; i++) {
           setTimeout(function(){ console.log('slide');impress().next() }, (strut_data.slides[i].end * 1000) - 300);
         };
-        audio.play();
+
+        if(audio)
+          audio.play();
     }
 
     if ("ontouchstart" in document.documentElement) { 
@@ -107,8 +112,6 @@ ready(function() {
     </script>
 </head>
 <body class="impress-not-supported">
-    <div id='kine_ppt'>
-      <div id="launched-placeholder"></div>
-    </div>
+    <div id="launched-placeholder"></div>
 </body>
 </html>
