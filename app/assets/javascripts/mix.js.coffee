@@ -1,3 +1,5 @@
+window.wavesurfer = Object.create(WaveSurfer)
+
 randomColor = (alpha) ->
   'rgba(' + [
     ~ ~(Math.random() * 255)
@@ -39,19 +41,18 @@ editAnnotation = (region) ->
 
 defaultRegionParams = { texts: [], drag: false, resize: false }
 
-splitRegion(time) = ->
+wavesurfer.splitRegion = (time) ->
   time ||= wavesurfer.getCurrentTime()
   # Assume that time is always within a region, since we initialize a region over full audio at start
-  splitCandidate = getRegions(time)[0]
+  splitCandidate = this.getRegionsAt(time)[0]
   wavesurfer.addRegion { start: splitCandidate.start, end: round100(time), drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
   wavesurfer.addRegion { start: round100(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
   wavesurfer.regions.list[splitCandidate.region_id].remove()
-  saveRegions()
 
-getRegions = (time) ->
+wavesurfer.getRegionsAt = (time) ->
   region for region in regionsArray() when (region.start <= time && time < region.end)
 
-saveRegions = ->
+window.saveRegions = ->
   localStorage.regions = JSON.stringify(regionsArray())
   return
 
@@ -72,12 +73,12 @@ deleteRegion = ->
     form.reset()
   return
 
-setMarker = ->
-  time = wavesurfer.getCurrentTime()
-  wavesurfer.addRegion(start: round100(time), drag: true, resize: false, data: { type: 'segment_item' }, color: 'rgba(0,0,0,0.5)')
-  saveRegions()
+wavesurfer.setMarker = (time, text) ->
+  time ||= wavesurfer.getCurrentTime()
+  text ||= ''
+  wavesurfer.addRegion(start: round100(time), drag: true, resize: false, data: { type: 'segment_item', note: text }, color: 'rgba(0,0,0,0.5)')
 
-window.regionsArray = ->
+regionsArray = ->
   mapped = Object.keys(wavesurfer.regions.list).map((id) ->
     region = wavesurfer.regions.list[id]
     {
@@ -111,7 +112,6 @@ showNote = (region) ->
     showNote.el.html region.data.note or '–'
   return
 
-window.wavesurfer = Object.create(WaveSurfer)
 
 fileDropped = false
 
@@ -157,7 +157,6 @@ $ ->
       region.play()
     return
   wavesurfer.on 'region-click', editAnnotation
-  #wavesurfer.on('region-dblclick', splitRegion);
   wavesurfer.on 'region-updated', saveRegions
   wavesurfer.on 'region-removed', saveRegions
   wavesurfer.on 'region-in', showNote
@@ -208,10 +207,12 @@ window.GLOBAL_ACTIONS['delete-region'] = ->
   deleteRegion()
 
 window.GLOBAL_ACTIONS['split-region'] = ->
-  splitRegion()
+  wavesurfer.splitRegion()
+  saveRegions()
 
 window.GLOBAL_ACTIONS['mark-word'] = ->
-  setMarker()
+  wavesurfer.setMarker()
+  saveRegions()
 
 window.GLOBAL_ACTIONS['export'] = ->
   window.open 'data:application/json;charset=utf-8,' + encodeURIComponent(localStorage.regions)
