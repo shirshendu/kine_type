@@ -126,7 +126,6 @@ $ ->
     cursorColor: 'navy'
     minimap: true
     minPxPerSec: 100
-  wavesurfer.load '1.mp3'
   wavesurfer.initMinimap
     height: 30
     waveColor: '#ddd'
