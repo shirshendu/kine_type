@@ -1,12 +1,15 @@
-#drop {
-    border: 3px dashed #ddd;
-    padding: 30px;
+.drop {
+  border: 3px dashed #ddd;
+  padding: 30px;
 }
-#drop.wavesurfer-dragover {
-    border-color: #333;
+.drop.subtitle-dragover {
+  border-color: #333;
+}
+.drop.wavesurfer-dragover {
+  border-color: #333;
 }
 .lead {
-    text-align: center;
-    padding: 20px;
+  text-align: center;
+  padding: 20px;
 }
 

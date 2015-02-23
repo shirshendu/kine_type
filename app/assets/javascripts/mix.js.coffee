@@ -198,7 +198,7 @@ document.addEventListener 'DOMContentLoaded', ->
     dragleave: (e) ->
       toggleActive e, false
       return
-  dropTarget = document.querySelector('#drop')
+  dropTarget = document.querySelector('#drop-music')
   Object.keys(handlers).forEach (event) ->
     dropTarget.addEventListener event, handlers[event]
     return
