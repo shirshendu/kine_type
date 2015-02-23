@@ -11,8 +11,8 @@ randomColor = (alpha) ->
 editAnnotation = (region) ->
   form = document.forms.edit
   form.classList.remove 'hide'
-  form.elements.start.value = round100(region.start)
-  form.elements.end.value = round100(region.end)
+  form.elements.start.value = round1000(region.start)
+  form.elements.end.value = round1000(region.end)
   form.elements.note.value = region.data.note or ''
   if region.data.type == 'segment'
     form.elements.note.setAttribute('disabled', 'disabled')
@@ -45,8 +45,8 @@ wavesurfer.splitRegion = (time) ->
   time ||= wavesurfer.getCurrentTime()
   # Assume that time is always within a region, since we initialize a region over full audio at start
   splitCandidate = this.getRegionsAt(time)[0]
-  wavesurfer.addRegion { start: splitCandidate.start, end: round100(time), drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
-  wavesurfer.addRegion { start: round100(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
+  wavesurfer.addRegion { start: splitCandidate.start, end: round1000(time), drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
+  wavesurfer.addRegion { start: round1000(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
   wavesurfer.regions.list[splitCandidate.region_id].remove()
 
 wavesurfer.getRegionsAt = (time) ->
@@ -66,7 +66,7 @@ deleteRegion = ->
       wavesurfer.regions.list[regionsArray()[1].region_id].update(start: 0)
     else
       # set prev's end as this end
-      replacer = (region for region_id, region of wavesurfer.regions.list when round100(region.end) == round100(deleteCandidate.start))[0]
+      replacer = (region for region_id, region of wavesurfer.regions.list when round1000(region.end) == round1000(deleteCandidate.start))[0]
       wavesurfer.regions.list[replacer.id].update(end: deleteCandidate.end)
   if regionId
     wavesurfer.regions.list[regionId].remove()
@@ -76,15 +76,15 @@ deleteRegion = ->
 wavesurfer.setMarker = (time, text) ->
   time ||= wavesurfer.getCurrentTime()
   text ||= ''
-  wavesurfer.addRegion(start: round100(time), drag: true, resize: false, data: { type: 'segment_item', note: text }, color: 'rgba(0,0,0,0.5)')
+  wavesurfer.addRegion(start: round1000(time), drag: true, resize: false, data: { type: 'segment_item', note: text }, color: 'rgba(0,0,0,0.5)')
 
 regionsArray = ->
   mapped = Object.keys(wavesurfer.regions.list).map((id) ->
     region = wavesurfer.regions.list[id]
     {
       region_id: id
-      start: round100(region.start)
-      end: round100(region.end)
+      start: round1000(region.start)
+      end: round1000(region.end)
       data: region.data
       texts: []
       drag: (if region.data.type == 'segment_item' then true else false)
@@ -95,7 +95,7 @@ regionsArray = ->
   mapped.sort (a,b)->
     a.start - b.start
 
-round100 = (input) ->
+round1000 = (input) ->
   Math.round(input * 100)/100
 
 loadRegions = (regions) ->
@@ -139,7 +139,7 @@ $ ->
     if localStorage.regions && JSON.parse(localStorage.regions).length > 0
       loadRegions JSON.parse(localStorage.regions)
     else
-      wavesurfer.addRegion(start: 0, end: round100(wavesurfer.getDuration()), drag: false, resize: false, data: { type: 'segment' })
+      wavesurfer.addRegion(start: 0, end: round1000(wavesurfer.getDuration()), drag: false, resize: false, data: { type: 'segment' })
       saveRegions()
     return
 
