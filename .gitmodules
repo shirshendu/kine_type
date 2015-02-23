@@ -1,0 +1,3 @@
+[submodule "vendor/assets/javascripts/subtitles-parser"]
+	path = vendor/assets/javascripts/subtitles-parser
+	url = https://github.com/bazh/subtitles-parser.git
