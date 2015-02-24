@@ -58,16 +58,11 @@
 <script src="scripts/loadPresentation.js"></script>
 <script>
 ready(function() {
-    var str = localStorage.aud
-    if(str) {
-      var strBuf = new ArrayBuffer(str.length);
-      var binAudio = new Uint8Array(strBuf);
-      for (var i=0; i<str.length; i++) {
-        binAudio[i] = str.charCodeAt(i);
-      }
-      binAudioBlob = new Blob([strBuf], {type: 'audio/mp3'});
-      var url = URL.createObjectURL(binAudioBlob);
-      var audio = new Audio(url);
+    var inputAudio = window.opener.parent.inputAudio;
+    var audio, url;
+    if(inputAudio) {
+      url = URL.createObjectURL(inputAudio);
+      audio = new Audio(url);
     }
 
     if (document.getElementById('launched-placeholder'))
@@ -82,7 +77,7 @@ ready(function() {
         var textboxes = document.querySelectorAll('font[data-position]')
         for (var i = 0; i < textboxes.length; i++) {
           textboxes[i].style.display = 'none';
-          setTimeout(function(index) { return function(){ console.log('text'); textboxes[index].style.display = '' } }(i), textboxes[i].dataset.position * 1000);
+          setTimeout(function(index) { return function(){ textboxes[index].style.display = '' } }(i), textboxes[i].dataset.position * 1000);
         };
 
         //set slide transitions
