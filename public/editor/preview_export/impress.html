@@ -88,7 +88,7 @@ ready(function() {
         //set slide transitions
         var strut_data = JSON.parse(localStorage['strut-presentation-unnamed.strut']);
         for (var i = 0; i < strut_data.slides.length; i++) {
-          setTimeout(function(){ console.log('slide');impress().next() }, (strut_data.slides[i].end * 1000) - 300);
+          setTimeout(function(){ impress().next() }, (strut_data.slides[i].end * 1000) - 300);
         };
 
         if(audio)
