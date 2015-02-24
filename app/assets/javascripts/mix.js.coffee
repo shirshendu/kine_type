@@ -183,10 +183,7 @@ document.addEventListener 'DOMContentLoaded', ->
       if e.dataTransfer.files.length
         fileDropped = true
         wavesurfer.loadBlob e.dataTransfer.files[0]
-        reader = new FileReader()
-        reader.addEventListener 'loadend', ->
-          localStorage.aud = reader.result
-        reader.readAsBinaryString(e.dataTransfer.files[0].slice())
+        window.inputAudio = e.dataTransfer.files[0].slice()
       else
         wavesurfer.fireEvent 'error', 'Not a file'
       return
