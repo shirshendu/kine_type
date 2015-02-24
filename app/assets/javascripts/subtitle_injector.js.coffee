@@ -1,5 +1,4 @@
 inject = (data) ->
-  console.log 'injecting'
   for segment in data
     wavesurfer.splitRegion(segment.startTime/1000)
     words = segment.text.split(/\n| /)

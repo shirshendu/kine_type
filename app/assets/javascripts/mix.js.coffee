@@ -134,6 +134,7 @@ $ ->
   wavesurfer.on 'ready', ->
     if fileDropped
       wavesurfer.clearRegions()
+      localStorage.regions = '[]'
       fileDropped = false
     if localStorage.regions && JSON.parse(localStorage.regions).length > 0
       loadRegions JSON.parse(localStorage.regions)
@@ -178,7 +179,6 @@ document.addEventListener 'DOMContentLoaded', ->
   handlers =
     drop: (e) ->
       toggleActive e, false
-      console.log e.dataTransfer.files
       # Load the file into wavesurfer
       if e.dataTransfer.files.length
         fileDropped = true
