@@ -18,9 +18,10 @@ loadPpt = ->
                #]
       #}
     #]
-  localStorage['Strut_sessionMeta'] = '{"generator_index":0,"lastPresentation":"presentation-unnamed.strut"}'
-  localStorage['strut-presentation-unnamed.strut'] = JSON.stringify(pptData)
-  $('#editor').attr('src', '/editor/')
+  $('#editor').removeAttr('src').one 'load', ->
+    localStorage['Strut_sessionMeta'] = '{"generator_index":0,"lastPresentation":"presentation-unnamed.strut"}'
+    localStorage['strut-presentation-unnamed.strut'] = JSON.stringify(pptData)
+    $('#editor').attr('src', '/editor/')
 
 $ ->
   $('#ppt-loader').on 'click', loadPpt
