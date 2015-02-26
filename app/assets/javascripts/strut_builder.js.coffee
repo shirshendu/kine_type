@@ -27,13 +27,14 @@ StrutBuilder.build = (data) ->
       position: item.start
     slidedata.texts = items
 
+  bgs = []
   slides = for slide, i in slidesdata
-    StrutBuilder.Slide.build(slide, i)
+    StrutBuilder.Slide.build(slide, i, bgs)
   {
     slides: slides,
     activeSlide: slides[0],
     fileName: 'presentation-unnamed',
     customStylesheet: '',
     deckVersion: '1.0',
-    customBackgrounds: { bgs: [] }
+    customBackgrounds: { bgs: bgs }
   }
