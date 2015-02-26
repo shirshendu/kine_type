@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require bootstrap
 //= require subtitles-parser/index
+//= require tinycolor
 
 //= require_tree .
