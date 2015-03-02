@@ -75,7 +75,7 @@ deleteRegion = ->
 wavesurfer.setMarker = (time, text) ->
   time ||= wavesurfer.getCurrentTime()
   text ||= ''
-  wavesurfer.addRegion(start: round1000(time), drag: true, resize: false, data: { type: 'segment_item', note: text }, color: 'rgba(0,0,0,0.5)')
+  wavesurfer.addRegion(start: round1000(time), drag: true, resize: false, data: { type: 'segment_item', note: text, animation: StrutBuilder.Animations.entrances.random() }, color: 'rgba(0,0,0,0.5)')
 
 regionsArray = ->
   mapped = Object.keys(wavesurfer.regions.list).map((id) ->

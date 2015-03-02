@@ -22,9 +22,11 @@ StrutBuilder.build = (data) ->
   slidesdata = (slide for slide in data when slide.data.type == 'segment')
   itemdata = (item for item in data when item.data.type == 'segment_item')
   for slidedata in slidesdata
-    items = for item in itemdata when (slidedata.start <= item.start and item.start < slidedata.end)
+    items = for item, i in itemdata when (slidedata.start <= item.start and item.start < slidedata.end)
       text: item.data.note
       position: item.start
+      animation: StrutBuilder.Animations.entrances.random()
+      duration: if itemdata[i + 1] then (itemdata[i+1].start - itemdata[i].start - 0.2) else (slidedata.end - itemdata[i].start - 0.3)
     slidedata.texts = items
 
   bgs = []
