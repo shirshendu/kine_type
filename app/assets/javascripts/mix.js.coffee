@@ -15,10 +15,13 @@ editAnnotation = (region) ->
   form.elements.end.value = round1000(region.end)
   form.elements.note.value = region.data.note or ''
   if region.data.type == 'segment'
-    form.elements.note.setAttribute('disabled', 'disabled')
+    form.getElementsByClassName('note-text')[0].classList.add('hide')
+    form.getElementsByClassName('animation-select')[0].classList.add('hide')
   else
-    form.elements.note.removeAttribute('disabled')
+    form.getElementsByClassName('note-text')[0].classList.remove('hide')
+    form.getElementsByClassName('animation-select')[0].classList.remove('hide')
   form.elements.type.value = region.data.type or ''
+  form.elements.animation.value = region.data.animation or 'fadeInUp'
 
   form.onsubmit = (e) ->
     e.preventDefault()
@@ -28,6 +31,7 @@ editAnnotation = (region) ->
       data:
         note: form.elements.note.value
         type: form.elements.type.value
+        animation: form.elements.animation.value
     form.classList.add 'hide'
     return
 
