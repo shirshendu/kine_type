@@ -32,16 +32,13 @@
           %i.glyphicon.glyphicon-pause
           Pause
     .col-sm-1
-      %button.btn.btn-primary.btn-block{ 'data-action' => 'split-region' }
-        Split
-    .col-sm-1
       %button.btn.btn-primary.btn-block{ 'data-action' => 'mark-word' }
         Mark
     .col-sm-2
       %button.btn.btn-info.btn-block{"data-action" => "export", :title => "Export annotations to JSON"}
         %i.glyphicon.glyphicon-file
         Export
-  %form.hide{:name => "edit", :role => "form", :style => "margin: 30px 0;"}
+  %form.form-inline.hide{:name => "edit", :role => "form", :style => "margin: 30px 0;"}
     .form-group.col-md-3.hide
       %label{:for => "start"} Start
       %input#start.form-control{:name => "start", disabled: 'disabled'}
@@ -91,10 +88,17 @@
       %select#type.form-control{:name => "type"}
         %option{ value: 'segment' } Segment
         %option{ value: 'segment_item' } Phrase
-    .form-group.col-md-2
+    .form-group.col-md-1.btn-save
       %button.btn.btn-success{:type => "submit"} Save
-    .form-group.col-md-2
+    .form-group.col-md-1.btn-split
+      %button.btn.btn-primary{ 'data-action' => 'split-region' } Split
+    .form-group.col-md-1.btn-merge
+      %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Merge
+    .form-group.col-md-1.btn-delete
       %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Delete
-  .form-group.col-md-2
-    %button#ppt-loader.btn.btn-default{"data-action" => "load-ppt", :type => "button" } Load ppt
-%iframe#editor{ seamless: true, height: '600px', width: '100%' }
+  .row
+    .col-md-3
+      %button#ppt-loader.btn.btn-default{"data-action" => "load-ppt", :type => "button" } Load ppt
+%br
+%br
+%iframe.row#editor{ seamless: true, height: '600px', width: '100%' }

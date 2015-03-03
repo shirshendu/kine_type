@@ -17,9 +17,17 @@ editAnnotation = (region) ->
   if region.data.type == 'segment'
     form.getElementsByClassName('note-text')[0].classList.add('hide')
     form.getElementsByClassName('animation-select')[0].classList.add('hide')
+    form.getElementsByClassName('btn-save')[0].classList.add('hide')
+    form.getElementsByClassName('btn-delete')[0].classList.add('hide')
+    form.getElementsByClassName('btn-merge')[0].classList.remove('hide')
+    form.getElementsByClassName('btn-split')[0].classList.remove('hide')
   else
     form.getElementsByClassName('note-text')[0].classList.remove('hide')
     form.getElementsByClassName('animation-select')[0].classList.remove('hide')
+    form.getElementsByClassName('btn-save')[0].classList.remove('hide')
+    form.getElementsByClassName('btn-delete')[0].classList.remove('hide')
+    form.getElementsByClassName('btn-merge')[0].classList.add('hide')
+    form.getElementsByClassName('btn-split')[0].classList.add('hide')
   form.elements.type.value = region.data.type or ''
   form.elements.animation.value = region.data.animation or 'fadeInUp'
 
