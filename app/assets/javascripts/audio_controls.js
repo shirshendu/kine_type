@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function () {
       37: 'back',       // left
       39: 'forth'       // right
     };
+    if(e.target.nodeName.toLowerCase() === 'input'){
+      return;
+    }
     var action = map[e.keyCode];
     if (action in GLOBAL_ACTIONS) {
       e.preventDefault();
