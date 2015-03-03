@@ -1,5 +1,5 @@
 .container
-  .row
+  .row#step2
     .col-md-6
       %p#drop-music.drop.lead.pull-center
         Drop your favorite
@@ -10,9 +10,10 @@
       %p#drop-subtitles.drop.lead.pull-center
         %b Then
         Optionally, drop your .srt here
-  %div#subtitle.text-center.text-info
-  %div#wave-timeline
-  %div#waveform
+  #step3
+    #subtitle.text-center.text-info
+    #waveform
+  #wave-timeline
   .row{:style => "margin: 30px 0"}
     .col-sm-6
       %p
@@ -31,9 +32,10 @@
         %span#pause{:style => "display: none;"}
           %i.glyphicon.glyphicon-pause
           Pause
-    .col-sm-1
+    .col-sm-2#btn-mark
       %button.btn.btn-primary.btn-block{ 'data-action' => 'mark-word' }
-        Mark
+        %i.glyphicon.glyphicon-plus
+        Word/Phrase
     .col-sm-2
       %button.btn.btn-info.btn-block{"data-action" => "export", :title => "Export annotations to JSON"}
         %i.glyphicon.glyphicon-file
@@ -90,10 +92,11 @@
         %option{ value: 'segment_item' } Phrase
     .form-group.col-md-1.btn-save
       %button.btn.btn-success{:type => "submit"} Save
-    .form-group.col-md-1.btn-split
-      %button.btn.btn-primary{ 'data-action' => 'split-region' } Split
-    .form-group.col-md-1.btn-merge
-      %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Merge
+    #region-actions.row
+      .form-group.col-md-1.btn-split
+        %button.btn.btn-primary{ 'data-action' => 'split-region' } Split
+      .form-group.col-md-1.btn-merge
+        %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Merge
     .form-group.col-md-1.btn-delete
       %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Delete
   .row
