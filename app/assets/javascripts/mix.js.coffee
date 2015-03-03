@@ -70,18 +70,21 @@ window.saveRegions = ->
 deleteRegion = ->
   form = document.forms.edit
   regionId = form.dataset.region
-  deleteCandidate = wavesurfer.regions.list[regionId]
+  if regionId
+    wavesurfer.deleteRegion regionId
+    form.reset()
+
+wavesurfer.deleteRegion = (regionId) ->
+  deleteCandidate = this.regions.list[regionId]
   if deleteCandidate.data.type == 'segment'
     if deleteCandidate.start == 0
       # set second's start as 0
-      wavesurfer.regions.list[regionsArray()[1].region_id].update(start: 0)
+      this.regions.list[regionsArray()[1].region_id].update(start: 0)
     else
       # set prev's end as this end
-      replacer = (region for region_id, region of wavesurfer.regions.list when round1000(region.end) == round1000(deleteCandidate.start))[0]
-      wavesurfer.regions.list[replacer.id].update(end: deleteCandidate.end)
-  if regionId
-    wavesurfer.regions.list[regionId].remove()
-    form.reset()
+      replacer = (region for region_id, region of this.regions.list when round1000(region.end) == round1000(deleteCandidate.start))[0]
+      this.regions.list[replacer.id].update(end: deleteCandidate.end)
+  this.regions.list[regionId].remove()
   return
 
 wavesurfer.setMarker = (time, text) ->
