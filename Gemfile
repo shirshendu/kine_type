@@ -54,6 +54,7 @@ gem 'binding_of_caller'
 gem 'tzinfo-data'
 gem 'validates_formatting_of'
 gem 'haml'
+gem 'introjs-rails'
 
 group :development, :test do
   gem 'dotenv-rails'

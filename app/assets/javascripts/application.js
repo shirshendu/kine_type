@@ -17,5 +17,6 @@
 //= require subtitles-parser/index
 //= require tinycolor
 //= require wavesurfer
+//= require introjs
 
 //= require_tree .
