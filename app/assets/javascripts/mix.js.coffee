@@ -58,9 +58,11 @@ wavesurfer.splitRegion = (time) ->
   # Assume that time is always within a region, since we initialize a region over full audio at start
   splitCandidate = this.getRegionsAt(time)[0]
   wavesurfer.addRegion { start: round1000(time), end: splitCandidate.end, drag: false, resize: false, data: { type: 'segment' }, color: randomColor(0.3) }
-  wavesurfer.regions.list[splitCandidate.id].update(end: round1000(time))
+  this.regions.list[splitCandidate.id].update(end: round1000(time))
+  splitCandidate
 
 wavesurfer.getRegionsAt = (time) ->
+  time ||= wavesurfer.getCurrentTime()
   region for region_id, region of wavesurfer.regions.list when (region.start <= time && time < region.end)
 
 window.saveRegions = ->
