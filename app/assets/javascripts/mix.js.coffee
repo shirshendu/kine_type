@@ -112,7 +112,7 @@ regionsArray = ->
     a.start - b.start
 
 round1000 = (input) ->
-  Math.round(input * 100)/100
+  Math.round(input * 1000)/1000
 
 loadRegions = (regions) ->
   regions.forEach (region) ->
