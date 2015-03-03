@@ -16,5 +16,6 @@
 //= require bootstrap
 //= require subtitles-parser/index
 //= require tinycolor
+//= require wavesurfer
 
 //= require_tree .
