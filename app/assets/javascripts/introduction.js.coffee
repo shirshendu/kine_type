@@ -112,7 +112,8 @@ document.addEventListener 'DOMContentLoaded', ->
           wavesurfer.setMarker(undefined, 'the')
           wavesurfer.seekTo(0.094933)
           wavesurfer.setMarker(undefined, 'blues')
-          wavesurfer.play(9.255,18.125)
+          wavesurfer.play(9.255)
+          setTimeout (-> wavesurfer.pause()), 8870
       },
       {
         element: '#ppt-loader'

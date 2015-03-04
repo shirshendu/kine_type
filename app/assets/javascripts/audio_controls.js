@@ -44,4 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+
+  wavesurfer.on('play', function() {$('#play').addClass('hide'); $('#pause').removeClass('hide')});
+  wavesurfer.on('pause', function() {$('#pause').addClass('hide'); $('#play').removeClass('hide')});
 });
