@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
       37: 'back',       // left
       39: 'forth'       // right
     };
-    if(e.target.nodeName.toLowerCase() === 'input'){
+    if(e.target.nodeName.toLowerCase() === 'textarea'){
       return;
     }
     var action = map[e.keyCode];
