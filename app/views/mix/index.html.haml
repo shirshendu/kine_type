@@ -21,6 +21,7 @@
       %p
         Shift-click on a region to play it from its beginning.
         %br
+        Directional animations are incompatible with element rotation in the ppt
         #music-attribution.hide
           Demo music: Holiday Funky Blues by
           %div{:about => "urn:sha1:OQ57Q4NWDR5YTSQFPEFSKDBDUOXSDCYX", "xmlns:cc" => "http://creativecommons.org/ns#"}
@@ -56,6 +57,9 @@
         %option{ value: 'bounceInLeft' } bounceInLeft
         %option{ value: 'bounceInRight' } bounceInRight
         %option{ value: 'bounceInUp' } bounceInUp
+        %option{ value: 'flash' } flash
+        %option{ value: 'hinge' } hinge
+        %option{ value: 'pulse' } pulse
         %option{ value: 'fadeIn' } fadeIn
         %option{ value: 'fadeInDown' } fadeInDown
         %option{ value: 'fadeInDownBig' } fadeInDownBig
@@ -73,10 +77,6 @@
         %option{ value: 'rotateInDownRight' } rotateInDownRight
         %option{ value: 'rotateInUpLeft' } rotateInUpLeft
         %option{ value: 'rotateInUpRight' } rotateInUpRight
-        %option{ value: 'slideInDown' } slideInDown
-        %option{ value: 'slideInLeft' } slideInLeft
-        %option{ value: 'slideInRight' } slideInRight
-        %option{ value: 'slideInUp' } slideInUp
         %option{ value: 'rollIn' } rollIn
         %option{ value: 'zoomIn' } zoomIn
         %option{ value: 'zoomInDown' } zoomInDown
