@@ -96,10 +96,8 @@ document.addEventListener 'DOMContentLoaded', ->
         element: '#step3'
         intro: 'Word markers are draggable. Be careful to sync the markers properly with the words.'
         behaviour: ->
-          wavesurfer.seekTo(0.0739)
-          wavesurfer.setMarker(undefined, 'the')
           wavesurfer.seekTo(0.074584)
-          wavesurfer.setMarker(undefined, 'holidays')
+          wavesurfer.setMarker(undefined, 'the holidays')
           wavesurfer.seekTo(0.080854)
           wavesurfer.setMarker(undefined, 'again')
           wavesurfer.seekTo(0.0853)
