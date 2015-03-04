@@ -84,6 +84,10 @@ ready(function() {
         impress().init();
         impress().goto(0,0);
 
+    var hint = document.querySelector('.hint');
+    hint.parentNode.removeChild(hint);
+
+    setTimeout(function() {
         // set box appearances
         var components = document.querySelectorAll('div.componentContainer')
         for (var i = 0; i < components.length; i++) {
@@ -111,11 +115,7 @@ ready(function() {
 
         if(audio)
           audio.play();
-    }
-
-    if ("ontouchstart" in document.documentElement) { 
-        document.querySelector(".hint").innerHTML = 
-            "<p>Tap on the left or right to navigate</p>";
+    }, 3000);
     }
 });
 </script>
