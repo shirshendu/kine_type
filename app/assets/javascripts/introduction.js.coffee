@@ -46,56 +46,72 @@ document.addEventListener 'DOMContentLoaded', ->
         element: '#waveform > wave:last-child'
         intro: 'Click here to seek anywhere in the song.'
         behaviour: ->
-          wavesurfer.seekAndCenter(0.635865)
+          wavesurfer.seekAndCenter(0.085015)
       },
       {
-        element: '#waveform > wave:first-child'
+        element: '#waveform > wave:nth-child(2)'
         intro: 'Click here to seek in the neighbourhood of the currently playing position. Clicking on an unmarked region like this...'
         behaviour: ->
-          wavesurfer.seekTo(0.652)
+          wavesurfer.seekTo(0.09)
           $('region')[0].click()
       },
       {
         element: '#region-actions'
-        intro: '...shows buttons that will you to split or merge it.'
+        intro: '...shows buttons that can split or merge it.'
       },
       {
-        element: '#waveform > wave:first-child'
+        element: '#waveform > wave:nth-child(2)'
         intro: '<b>Splitting Regions:</b> Simply put, you should have one region for every sentence in the song'
         behaviour: ->
-          wavesurfer.seekTo(0.635865)
+          wavesurfer.seekTo(0.085015)
           wavesurfer.splitRegion()
-          wavesurfer.seekTo(0.652)
+          wavesurfer.seekTo(0.1033687)
           reg = wavesurfer.splitRegion()
           reg.play()
       },
       {
-        element: '#waveform > wave:first-child'
+        element: '#waveform > wave:nth-child(2)'
         intro: '<b>Merging Regions:</b> Upon merging, a region is combined into the region before it.'
         behaviour: ->
-          wavesurfer.seekTo(0.66)
+          wavesurfer.seekTo(0.12)
           wavesurfer.deleteRegion(wavesurfer.getRegionsAt()[0].id)
       },
       {
         element: '#btn-mark'
         intro: 'After splitting out a sentence, you would want to mark the words in it.'
         behaviour: ->
-          wavesurfer.seekTo(0.652)
+          wavesurfer.seekTo(0.1033687)
           window.reg = wavesurfer.splitRegion()
+      },
+      {
+        element: 'form'
+        intro: 'Clicking a word-mark in the waveform allows you to enter text, select animation and save, or else delete it'
+        behaviour: ->
+          wavesurfer.seekTo(0.072304)
+          wavesurfer.setMarker(undefined, 'It\'s')
+          document.querySelector('region:last-child').click()
       },
       {
         element: '#step3'
         intro: 'Word markers are draggable. Be careful to sync the markers properly with the words.'
         behaviour: ->
-          wavesurfer.seekTo(0.635962)
-          wavesurfer.setMarker(undefined, 'No')
-          wavesurfer.seekTo(0.64006)
-          wavesurfer.setMarker(undefined, 'time')
-          wavesurfer.seekTo(0.6433949)
-          wavesurfer.setMarker(undefined, 'for')
-          wavesurfer.seekTo(0.644408)
-          wavesurfer.setMarker(undefined, 'losers')
-          reg.play()
+          wavesurfer.seekTo(0.0739)
+          wavesurfer.setMarker(undefined, 'the')
+          wavesurfer.seekTo(0.074584)
+          wavesurfer.setMarker(undefined, 'holidays')
+          wavesurfer.seekTo(0.080854)
+          wavesurfer.setMarker(undefined, 'again')
+          wavesurfer.seekTo(0.0853)
+          wavesurfer.setMarker(undefined, 'And me,')
+          wavesurfer.seekTo(0.089175)
+          wavesurfer.setMarker(undefined, 'I\'ve')
+          wavesurfer.seekTo(0.091285)
+          wavesurfer.setMarker(undefined, 'caught')
+          wavesurfer.seekTo(0.093793)
+          wavesurfer.setMarker(undefined, 'the')
+          wavesurfer.seekTo(0.094933)
+          wavesurfer.setMarker(undefined, 'blues')
+          wavesurfer.play(9.255,18.125)
       },
       {
         element: '#ppt-loader'
