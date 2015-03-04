@@ -1,7 +1,7 @@
 window.StrutBuilder ||= {}
 
 StrutBuilder.Textbox = {}
-faces = [ 'Lato', 'League Gothic, sans-serif', 'Droid Sans Mono, monospace', 'Ubuntu, sans-serif', 'Abril Fatface, cursive', 'Hammersmith One, sans-serif', 'Fredoka One, cursive', 'Gorditas, cursive', 'Press Start 2P, cursive' ]
+faces = [ 'Lato', 'League Gothic, sans-serif', 'Droid Sans Mono, monospace', 'Ubuntu, sans-serif', 'Abril Fatface, cursive', 'Hammersmith One, sans-serif', 'Fredoka One, cursive', 'Gorditas, cursive', 'PressStart2P, cursive' ]
 randomFace = ->
   faces[Math.floor(Math.random() * faces.length)]
 StrutBuilder.Textbox.build = (data, i) ->
