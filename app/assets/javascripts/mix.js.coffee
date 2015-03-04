@@ -184,6 +184,27 @@ $ ->
     return
   return
 
+### Progress bar ###
+
+$ ->
+  progressDiv = document.querySelector('#progress-bar')
+  progressBar = progressDiv.querySelector('.progress-bar')
+
+  showProgress = (percent) ->
+    progressDiv.style.display = 'block'
+    progressBar.style.width = percent + '%'
+    return
+
+  hideProgress = ->
+    progressDiv.style.display = 'none'
+    return
+
+  wavesurfer.on 'loading', showProgress
+  wavesurfer.on 'ready', hideProgress
+  wavesurfer.on 'destroy', hideProgress
+  wavesurfer.on 'error', hideProgress
+  return
+
 document.addEventListener 'DOMContentLoaded', ->
   # Drag'n'Drop
   toggleActive = (e, toggle) ->

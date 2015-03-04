@@ -13,17 +13,14 @@
   #step3
     #subtitle.text-center.text-info
     #waveform
+      #progress-bar.progress.progress-striped.active{ style: 'display: none' }
+        .progress-bar.progress-bar-info
   #wave-timeline
   .row{:style => "margin: 30px 0"}
     .col-sm-6
       %p
         Shift-click on a region to play it from its beginning.
         %br
-        Split regions between segments (As many slides as segments are generated)
-        %br
-        Mark/drag word-start-points inside regions
-        %br
-        Click on each word-start-point, enter word/phrase for it, and 'Save'
     .col-sm-1
       %button.btn.btn-primary.btn-block{"data-action" => "play"}
         %span#play
@@ -92,13 +89,13 @@
         %option{ value: 'segment_item' } Phrase
     .form-group.col-md-1.btn-save
       %button.btn.btn-success{:type => "submit"} Save
+    .form-group.col-md-1.btn-delete
+      %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Delete
     #region-actions.row
       .form-group.col-md-1.btn-split
         %button.btn.btn-primary{ 'data-action' => 'split-region' } Split
       .form-group.col-md-1.btn-merge
         %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Merge
-    .form-group.col-md-1.btn-delete
-      %button.btn.btn-danger{"data-action" => "delete-region", :type => "button"} Delete
   .row
     .col-md-3
       %button#ppt-loader.btn.btn-default{"data-action" => "load-ppt", :type => "button" } Load ppt

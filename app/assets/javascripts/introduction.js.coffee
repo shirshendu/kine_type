@@ -25,9 +25,17 @@ document.addEventListener 'DOMContentLoaded', ->
         intro: 'This is the waveform of the loaded mp3.'
         behaviour: ->
           getSound = new XMLHttpRequest()
-          getSound.open "GET", "demo.mp3", true
+          getSound.open "GET", "snowflake_-_Holiday_Funky_Blues.mp3", true
           getSound.responseType = "blob"
+          progressDiv = document.querySelector('#progress-bar')
+          progressBar = document.querySelector('.progress-bar')
+          getSound.onprogress = (e) ->
+            if e.lengthComputable
+              percentComplete = (e.loaded/e.total) * 100
+              progressDiv.style.display = 'block'
+              progressBar.style.width = percentComplete + '%'
           getSound.onload = (e) ->
+            progressDiv.style.display = 'none'
             if(this.status == 200)
               blob = this.response
               wavesurfer.loadBlob blob
