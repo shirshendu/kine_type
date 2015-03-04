@@ -8,3 +8,4 @@ Acknowledgements
 - [Strut](https://github.com/shirshendu/Strut) (Originally by @tantaman, [Strut](https://github.com/tantaman/Strut), with some modifications)
 - [Wavesurfer.js](https://github.com/katspaugh/wavesurfer.js)
 - [subtitles-parser](https://github.com/bazh/subtitles-parser)
+- [Holiday Funky Blues](http://ccmixter.org/files/snowflake/48516) by snowflake

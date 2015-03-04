@@ -40,6 +40,7 @@ document.addEventListener 'DOMContentLoaded', ->
               blob = this.response
               wavesurfer.loadBlob blob
               window.inputAudio = blob
+              $('#music-attribution').removeClass('hide')
           getSound.send()
       },
       {

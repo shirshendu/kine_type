@@ -21,6 +21,12 @@
       %p
         Shift-click on a region to play it from its beginning.
         %br
+        #music-attribution.hide
+          Demo music: Holiday Funky Blues by
+          %div{:about => "urn:sha1:OQ57Q4NWDR5YTSQFPEFSKDBDUOXSDCYX", "xmlns:cc" => "http://creativecommons.org/ns#"}
+            %a{:href => "http://ccmixter.org/files/snowflake/48516", :property => "cc:attributionName", :rel => "cc:attributionURL"} snowflake
+            \/
+            %a{:href => "http://creativecommons.org/licenses/by-nc/3.0/", :rel => "license"} CC BY-NC 3.0
     .col-sm-1
       %button.btn.btn-primary.btn-block{"data-action" => "play"}
         %span#play
