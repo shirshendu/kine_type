@@ -144,5 +144,5 @@ document.addEventListener 'DOMContentLoaded', ->
 
   if(document.cookie.indexOf('skip_intro=true') == -1)
     startIntro()
-  #document.cookie = 'skip_intro=true' TODO  startIntro()
+  document.cookie = 'skip_intro=true'
 
