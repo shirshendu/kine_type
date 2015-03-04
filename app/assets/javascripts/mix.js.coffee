@@ -141,7 +141,7 @@ $ ->
     loaderColor: 'purple'
     cursorColor: 'navy'
     minimap: true
-    minPxPerSec: 100
+    minPxPerSec: 50
   wavesurfer.initMinimap
     height: 30
     waveColor: '#ddd'
