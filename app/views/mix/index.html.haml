@@ -1,15 +1,17 @@
 .container
-  .row#step2
-    .col-md-6
-      %p#drop-music.drop.lead.pull-center
-        Drop your favorite
-        = succeed "-file" do
-          %i.glyphicon.glyphicon-music
-        here
-    .col-md-6
-      %p#drop-subtitles.drop.lead.pull-center
-        %b Then
-        Optionally, drop your .srt here
+  .jumbotron
+    .h2.text-center Kinetic Typography in your browser
+    .row#step2
+      .col-md-6
+        %p#drop-music.drop.lead.pull-center
+          Drop your favorite
+          = succeed "-file" do
+            %i.glyphicon.glyphicon-music
+          here
+      .col-md-6
+        %p#drop-subtitles.drop.lead.pull-center
+          %b Then
+          Optionally, drop your .srt here
   #step3
     #subtitle.text-center.text-info
     #waveform
@@ -106,3 +108,5 @@
 %br
 %br
 %iframe.row#editor{ seamless: true, height: '600px', width: '100%' }
+%a{:href => "https://github.com/shirshendu/kine_type"}
+  %img{:alt => "Fork me on GitHub", "data-canonical-src" => "https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png", :src => "https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67", :style => "position: absolute; top: 0; left: 0; border: 0;"}/
