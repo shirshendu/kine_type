@@ -1,5 +1,10 @@
 stepCounter = 0
 introOptions = {}
+resetIntro = (e) ->
+  e.preventDefault()
+  document.cookie = 'skip_intro=false'
+  location.reload()
+
 startIntro = ->
   intro = introJs()
   intro.setOptions(introOptions)
@@ -143,4 +148,4 @@ document.addEventListener 'DOMContentLoaded', ->
   if(document.cookie.indexOf('skip_intro=true') == -1)
     startIntro()
   document.cookie = 'skip_intro=true'
-
+  $('#reset-intro-link').click resetIntro
